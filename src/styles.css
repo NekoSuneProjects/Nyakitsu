@@ -1,0 +1,66 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #eef3ff;
+  background: #07090f;
+  font-synthesis: none;
+}
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+button, input, textarea, select { font: inherit; }
+button { color: inherit; }
+.app-shell { height: 100%; background: #07090f; }
+.browser-chrome { height: 104px; background: linear-gradient(180deg, #111620 0%, #0b0f17 100%); border-bottom: 1px solid #242b3a; position: relative; z-index: 10; }
+.tab-strip { display: flex; height: 50px; align-items: end; padding: 8px 10px 0; gap: 14px; }
+.brand { display:flex; align-items:center; gap:8px; height:34px; padding:0 6px; white-space:nowrap; color:#f4f7ff; }
+.brand-mark { display:grid; place-items:center; width:28px; height:28px; border-radius:10px; background:linear-gradient(135deg,#9c5cff,#4f8cff); font-size:11px; box-shadow:0 0 24px #7459ff55; }
+.tabs { display:flex; align-items:end; min-width:0; gap:4px; flex:1; overflow:hidden; }
+.tab { border:1px solid transparent; background:#0b0f17; min-width:120px; max-width:230px; height:34px; border-radius:10px 10px 0 0; padding:0 9px; display:flex; gap:7px; align-items:center; color:#8994a9; cursor:pointer; }
+.tab span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; text-align:left; font-size:12px; }
+.tab.active { background:#171d29; border-color:#293143; border-bottom-color:#171d29; color:#f0f4ff; }
+.tab-close { opacity:.45; border-radius:4px; }
+.tab-close:hover { opacity:1; background:#394054; }
+.toolbar { height:54px; display:flex; align-items:center; gap:7px; padding:7px 12px 9px; }
+.icon-button { width:34px; height:34px; border:0; border-radius:9px; display:grid; place-items:center; background:transparent; color:#9aa6ba; cursor:pointer; }
+.icon-button:hover:not(:disabled) { background:#1b2230; color:#fff; }
+.icon-button:disabled { opacity:.3; cursor:default; }
+.icon-button.small { width:31px; height:31px; margin-bottom:2px; }
+.address-form { flex:1; max-width:900px; margin:0 auto; height:38px; display:flex; align-items:center; gap:9px; background:#171d29; border:1px solid #2a3345; border-radius:13px; padding:0 12px; box-shadow: inset 0 1px #ffffff08; }
+.address-form:focus-within { border-color:#735df5; box-shadow:0 0 0 3px #725cf522; }
+.address-form input { flex:1; min-width:0; border:0; outline:0; background:transparent; color:#edf2ff; font-size:13px; }
+.ai-toggle { height:36px; padding:0 13px; border-radius:10px; border:1px solid #30394d; background:#171d29; display:flex; align-items:center; gap:7px; cursor:pointer; }
+.ai-toggle.active { border-color:#7964ff; background:#2a2249; color:#ddd5ff; }
+.stage { position:absolute; inset:104px 0 0; display:flex; }
+.browser-placeholder { flex:1; display:grid; place-items:center; color:#3c4657; background:#090c12; }
+.browser-placeholder div { text-align:center; font-size:13px; }
+.ai-sidebar { width:380px; flex:0 0 380px; border-left:1px solid #242b3a; background:linear-gradient(180deg,#10151f,#090c12 75%); display:flex; flex-direction:column; position:relative; z-index:9; }
+.assistant-header { min-height:64px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #232b3a; }
+.assistant-title { display:flex; align-items:center; gap:7px; font-weight:700; font-size:14px; }
+.assistant-header small { color:#76839a; font-size:10px; display:block; margin-top:3px; max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.quick-actions { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:10px; border-bottom:1px solid #1d2431; }
+.quick-actions button { height:35px; border-radius:9px; border:1px solid #2d3547; background:#151b26; cursor:pointer; color:#b8c2d4; display:flex; align-items:center; justify-content:center; gap:5px; font-size:11px; }
+.quick-actions button:hover { border-color:#6958ce; color:#fff; }
+.messages { flex:1; overflow-y:auto; padding:14px 12px 110px; }
+.message { margin-bottom:14px; }
+.message > span { font-size:9px; font-weight:800; letter-spacing:.12em; color:#67748d; }
+.message p { margin:5px 0 0; padding:10px 11px; border-radius:12px; line-height:1.5; font-size:12.5px; white-space:pre-wrap; }
+.message.assistant p { background:#151b27; border:1px solid #222b3b; color:#dce4f4; }
+.message.user p { background:#2d2450; border:1px solid #58459b; color:#f3efff; }
+.thinking { display:flex; gap:8px; align-items:center; }
+.composer { position:absolute; left:10px; right:10px; bottom:10px; min-height:82px; padding:8px 8px 8px 11px; border:1px solid #30394d; border-radius:14px; background:#171d29ef; backdrop-filter:blur(12px); display:flex; align-items:end; gap:8px; box-shadow:0 14px 34px #0008; }
+.composer:focus-within { border-color:#715def; }
+.composer textarea { flex:1; resize:none; border:0; outline:0; background:transparent; color:#eef2ff; line-height:1.45; }
+.composer button, .primary { border:0; background:linear-gradient(135deg,#8d63ff,#507cff); border-radius:10px; min-width:36px; height:36px; display:grid; place-items:center; cursor:pointer; color:#fff; box-shadow:0 8px 20px #5d55e633; }
+.composer button:disabled { opacity:.4; }
+.settings-panel { padding:16px; overflow:auto; }
+.settings-panel h3 { margin:0 0 15px; }
+.settings-panel label { display:flex; flex-direction:column; gap:6px; color:#8d9ab0; font-size:11px; margin-bottom:12px; }
+.settings-panel input, .settings-panel select { width:100%; height:38px; border:1px solid #2c3547; border-radius:9px; outline:0; padding:0 10px; background:#111722; color:#edf2ff; }
+.settings-panel input:focus, .settings-panel select:focus { border-color:#715def; }
+.model-row { display:flex; align-items:end; gap:8px; }
+.model-row label { flex:1; }
+.secondary { height:38px; margin-bottom:12px; border-radius:9px; border:1px solid #344058; background:#18202d; cursor:pointer; }
+.primary { display:flex; width:100%; align-items:center; justify-content:center; }
+.hint { color:#65728a; font-size:10.5px; line-height:1.5; }
+.spin { animation:spin 1s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+@media(max-width:900px) { .ai-sidebar { width:330px; flex-basis:330px; } .brand strong { display:none; } }

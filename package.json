@@ -1,0 +1,63 @@
+{
+  "name": "nyakitsu",
+  "version": "0.1.0-alpha.1",
+  "description": "Nyakitsu is an open-source, multi-provider AI-native web browser.",
+  "author": "NekoSuneProjects",
+  "license": "MIT",
+  "private": false,
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && cross-env NYAKITSU_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "build": "tsc -b && vite build",
+    "start": "electron .",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "check": "tsc -b --pretty false && node --check electron/main.cjs && node --check electron/preload.cjs && node --check electron/tabs.cjs && node --check electron/store.cjs && node --check electron/ai/providers.cjs && node --check electron/ai/client.cjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "vite": "^7.1.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "lucide-react": "^0.542.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.0.0",
+    "electron": "^44.2.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.9.2",
+    "wait-on": "^8.0.4"
+  },
+  "build": {
+    "appId": "uk.co.nekosuneprojects.nyakitsu",
+    "productName": "Nyakitsu",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": ["nsis", "portable"],
+      "artifactName": "Nyakitsu-${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Network;WebBrowser",
+      "artifactName": "Nyakitsu-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

@@ -7,7 +7,10 @@ function webUrl(input) {
 }
 
 function parseAction(text) {
-  const value = JSON.parse(String(text).trim().replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, ''))
+  const cleaned = String(text).trim().replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '')
+  let value
+  try { value = JSON.parse(cleaned) }
+  catch { throw new Error(`The model replied instead of choosing an action: "${cleaned.slice(0,200)}"`) }
   if (!value || !['navigate','click','type','select','scroll','wait','done','login'].includes(value.action)) throw new Error('The model did not return a supported browser action. Try a different model.')
   if (typeof value.reason !== 'string' || value.reason.length > 2000) throw new Error('A short action explanation is required.')
   if (value.action === 'navigate') webUrl(value.url)

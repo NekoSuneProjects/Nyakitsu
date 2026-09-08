@@ -2,7 +2,10 @@
   "name": "nyakitsu",
   "version": "0.1.0-alpha.1",
   "description": "Nyakitsu is an open-source, multi-provider AI-native web browser.",
-  "author": "NekoSuneProjects",
+  "author": {
+    "name": "NekoSuneProjects",
+    "email": "nekosunevr@fumikoecho.ca"
+  },
   "license": "MIT",
   "private": false,
   "main": "electron/main.cjs",

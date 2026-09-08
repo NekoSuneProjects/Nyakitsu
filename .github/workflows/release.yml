@@ -91,6 +91,7 @@ jobs:
           {
             echo "body<<CHANGELOG_EOF"
             cat changelog.md
+            echo
             echo "CHANGELOG_EOF"
           } >> "$GITHUB_OUTPUT"
 

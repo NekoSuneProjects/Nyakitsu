@@ -41,15 +41,15 @@ jobs:
 
       - name: Build (windows)
         if: matrix.os_family == 'windows'
-        run: npm run dist:win
+        run: npm run dist:win -- --publish=never
 
       - name: Build (linux x64)
         if: matrix.os_family == 'linux' && matrix.arch == 'x64'
-        run: npm run build && npx electron-builder --linux --x64
+        run: npm run build && npx electron-builder --linux --x64 --publish=never
 
       - name: Build (linux arm64)
         if: matrix.os_family == 'linux' && matrix.arch == 'arm64'
-        run: npm run build && npx electron-builder --linux --arm64
+        run: npm run build && npx electron-builder --linux --arm64 --publish=never
 
       - uses: actions/upload-artifact@v4
         with:

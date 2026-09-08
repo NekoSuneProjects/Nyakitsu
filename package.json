@@ -14,24 +14,29 @@
     "dist": "npm run build && electron-builder",
     "dist:win": "npm run build && electron-builder --win",
     "dist:linux": "npm run build && electron-builder --linux",
-    "check": "tsc -b --pretty false && node --check electron/main.cjs && node --check electron/preload.cjs && node --check electron/tabs.cjs && node --check electron/store.cjs && node --check electron/ai/providers.cjs && node --check electron/ai/client.cjs"
+    "check": "tsc -b --pretty false && node scripts/check.cjs",
+    "test": "node --test tests/unit/*.test.cjs",
+    "test:browser": "electron tests/integration/browser.cjs",
+    "test:ui": "electron tests/integration/ui.cjs",
+    "test:account": "node tests/integration/account-smoke.cjs"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^5.0.2",
-    "vite": "^7.1.4",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "lucide-react": "^0.542.0"
+    "@openai/codex": "0.149.1"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.2.0",
     "concurrently": "^9.2.1",
     "cross-env": "^10.0.0",
     "electron": "^44.2.0",
     "electron-builder": "^26.0.12",
+    "lucide-react": "^0.542.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "typescript": "^5.9.2",
+    "vite": "^7.3.6",
     "wait-on": "^8.0.4"
   },
   "build": {
@@ -47,17 +52,26 @@
       "package.json"
     ],
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "artifactName": "Nyakitsu-${version}-${arch}.${ext}"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "category": "Network;WebBrowser",
       "artifactName": "Nyakitsu-${version}-${arch}.${ext}"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
-    }
+    },
+    "asarUnpack": [
+      "node_modules/@openai/codex-*/**/*"
+    ]
   }
 }

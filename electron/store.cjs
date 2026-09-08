@@ -3,9 +3,9 @@ const fs = require('node:fs')
 const path = require('node:path')
 
 const defaults = {
-  providerId: 'ollama',
-  model: 'qwen3:8b',
-  baseUrl: 'http://127.0.0.1:11434',
+  providerId: 'chatgpt',
+  model: '',
+  baseUrl: '',
   apiKeyEncrypted: ''
 }
 
@@ -14,7 +14,11 @@ function filePath() {
 }
 
 function read() {
-  try { return { ...defaults, ...JSON.parse(fs.readFileSync(filePath(), 'utf8')) } }
+  try {
+    const value = { ...defaults, ...JSON.parse(fs.readFileSync(filePath(), 'utf8')) }
+    const apiKeys = value.apiKeys || { [value.providerId]:value.apiKeyEncrypted }
+    return { ...value,apiKeys,apiKeyEncrypted:apiKeys[value.providerId] || '' }
+  }
   catch { return { ...defaults } }
 }
 
@@ -40,7 +44,7 @@ function decryptSecret(value) {
 
 function publicSettings() {
   const value = read()
-  return { providerId: value.providerId, model: value.model, baseUrl: value.baseUrl, hasApiKey: Boolean(value.apiKeyEncrypted) }
+  return { providerId: value.providerId, model: value.model, baseUrl: value.baseUrl, hasApiKey: value.providerId !== 'chatgpt' && Boolean(value.apiKeyEncrypted) }
 }
 
 function privateSettings() {
@@ -56,7 +60,9 @@ function saveSettings(next) {
     model: next.model ?? current.model,
     baseUrl: next.baseUrl ?? current.baseUrl
   }
-  if (typeof next.apiKey === 'string' && next.apiKey.length > 0) merged.apiKeyEncrypted = encryptSecret(next.apiKey)
+  merged.apiKeys = { ...(current.apiKeys || { [current.providerId]:current.apiKeyEncrypted }) }
+  if (merged.providerId !== 'chatgpt' && typeof next.apiKey === 'string' && next.apiKey.length > 0) merged.apiKeys[merged.providerId] = encryptSecret(next.apiKey)
+  merged.apiKeyEncrypted = merged.apiKeys[merged.providerId] || ''
   write(merged)
   return publicSettings()
 }

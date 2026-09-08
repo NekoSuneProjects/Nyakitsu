@@ -1,4 +1,5 @@
 const providers = [
+  { id:'chatgpt', name:'ChatGPT subscription', family:'codex', baseUrl:'', keyRequired:false, notes:'Sign in with ChatGPT through Codex. Uses your eligible account allowance.' },
   { id:'ollama', name:'Ollama (Local)', family:'ollama', baseUrl:'http://127.0.0.1:11434', keyRequired:false, local:true, freeTier:true, notes:'Run models privately on your own computer.' },
   { id:'ollama-cloud', name:'Ollama Cloud', family:'ollama', baseUrl:'https://ollama.com', keyRequired:true, freeTier:true, notes:'Remote Ollama-compatible endpoint. Base URL can be changed.' },
   { id:'openai', name:'OpenAI', family:'openai', baseUrl:'https://api.openai.com/v1', keyRequired:true },
@@ -24,5 +25,5 @@ const providers = [
 ]
 
 function listProviders() { return providers.map((item) => ({ ...item })) }
-function providerById(id) { return providers.find((item) => item.id === id) || providers[0] }
+function providerById(id) { return providers.find((item) => item.id === id) || providers.find((item) => item.id === 'ollama') }
 module.exports = { listProviders, providerById }

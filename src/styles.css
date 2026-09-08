@@ -62,5 +62,29 @@ button { color: inherit; }
 .primary { display:flex; width:100%; align-items:center; justify-content:center; }
 .hint { color:#65728a; font-size:10.5px; line-height:1.5; }
 .spin { animation:spin 1s linear infinite; }
+.tab-select { min-width:0; flex:1; display:flex; align-items:center; gap:7px; background:none; border:0; padding:0; cursor:pointer; }
+.tab-close-button { background:none; border:0; padding:3px; color:inherit; cursor:pointer; }
+.mode-switch { display:flex; gap:5px; padding:10px; border-bottom:1px solid #242b3a; }
+.mode-switch button { flex:1; padding:8px; background:#151b26; border:1px solid #30394d; border-radius:9px; cursor:pointer; font-size:12px; }
+.mode-switch .selected { background:#2d2450; border-color:#7964ff; }
+.account-panel { padding:12px; border:1px solid #3e355d; background:#1c1830; border-radius:12px; margin-bottom:14px; }
+.account-panel strong { font-size:13px; }
+.account-panel p { font-size:12px; line-height:1.5; color:#b7c1d3; }
+.account-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.account-actions .primary { width:auto; flex:1; padding:0 12px; }
+.account-actions .secondary { margin:0; padding:0 10px; }
+.account-panel .account-actions { display:grid; grid-template-columns:1fr; }
+.account-panel .account-actions .primary { white-space:nowrap; }
+.task-activity { padding:10px 12px; border-bottom:1px solid #242b3a; max-height:45%; overflow:auto; font-size:12px; }
+.task-controls { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.task-controls .secondary { margin:0; padding:0 10px; height:30px; }
+.task-activity details { margin-top:8px; color:#b7c1d3; }
+.task-activity li { margin-bottom:7px; line-height:1.4; }
+.approval { margin-top:10px; border:1px solid #867048; padding:10px; border-radius:10px; background:#2b241b; }
+.approval p { white-space:pre-wrap; overflow-wrap:anywhere; max-height:160px; overflow:auto; }
+.error { color:#ffadb3; overflow-wrap:anywhere; font-size:12px; }
+.message p { overflow-wrap:anywhere; }
+button:disabled { cursor:default; opacity:.5; }
+button:focus-visible { outline:2px solid #ac98ff; outline-offset:2px; }
 @keyframes spin { to { transform:rotate(360deg); } }
 @media(max-width:900px) { .ai-sidebar { width:330px; flex-basis:330px; } .brand strong { display:none; } }

@@ -23,10 +23,23 @@ contextBridge.exposeInMainWorld('nyakitsu', {
     onActiveTabChanged: (callback) => listen('browser:active-tab', callback)
   },
   ai: {
+    account: () => ipcRenderer.invoke('ai:account'),
+    login: () => ipcRenderer.invoke('ai:login'),
+    cancelLogin: () => ipcRenderer.invoke('ai:cancel-login'),
+    logout: () => ipcRenderer.invoke('ai:logout'),
+    onAccountChanged: (callback) => listen('ai:account-changed', callback),
     providers: () => ipcRenderer.invoke('ai:providers'),
     settings: () => ipcRenderer.invoke('ai:settings'),
     saveSettings: (settings) => ipcRenderer.invoke('ai:save-settings', settings),
     models: (input) => ipcRenderer.invoke('ai:models', input),
     chat: (input) => ipcRenderer.invoke('ai:chat', input)
+  },
+  agent: {
+    run: (input) => ipcRenderer.invoke('agent:run', input),
+    resume: () => ipcRenderer.invoke('agent:resume'),
+    stop: () => ipcRenderer.invoke('agent:stop'),
+    approve: (id, allow) => ipcRenderer.invoke('agent:approve', id, allow),
+    onStep: (callback) => listen('agent:step', callback),
+    onApproval: (callback) => listen('agent:approval', callback)
   }
 })

@@ -12,7 +12,7 @@ export type TabInfo = {
 export type ProviderInfo = {
   id: string
   name: string
-  family: 'openai' | 'anthropic' | 'gemini' | 'ollama'
+  family: 'openai' | 'anthropic' | 'gemini' | 'ollama' | 'codex'
   baseUrl: string
   keyRequired: boolean
   freeTier?: boolean
@@ -33,6 +33,11 @@ export type ChatMessage = {
   content: string
 }
 
+export type AccountStatus = { signedIn: boolean; plan: string | null; pending: boolean }
+export type AgentStep = { step: number; action: string; text: string }
+export type AgentApproval = { id: string; message: string; details: string }
+export type AgentResult = { text: string; resumable: boolean }
+
 declare global {
   interface Window {
     nyakitsu: {
@@ -52,11 +57,24 @@ declare global {
         onActiveTabChanged(callback: (tab: TabInfo | null) => void): () => void
       }
       ai: {
+        account(): Promise<AccountStatus>
+        login(): Promise<{ pending: boolean }>
+        cancelLogin(): Promise<void>
+        logout(): Promise<void>
+        onAccountChanged(callback: (state: { error: string | null }) => void): () => void
         providers(): Promise<ProviderInfo[]>
         settings(): Promise<AiSettings>
         saveSettings(settings: { providerId: string; model: string; baseUrl?: string; apiKey?: string }): Promise<AiSettings>
         models(input?: { providerId?: string; baseUrl?: string; apiKey?: string }): Promise<string[]>
-        chat(input: { messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }>; includePage?: boolean }): Promise<{ text: string }>
+        chat(input: { messages: Array<{ role: 'user' | 'assistant'; content: string }>; includePage?: boolean }): Promise<{ text: string }>
+      }
+      agent: {
+        run(input: { messages: Array<{ role: 'user' | 'assistant'; content: string }> }): Promise<AgentResult>
+        resume(): Promise<AgentResult>
+        stop(): Promise<void>
+        approve(id: string, allow: boolean): Promise<void>
+        onStep(callback: (step: AgentStep) => void): () => void
+        onApproval(callback: (approval: AgentApproval | null) => void): () => void
       }
     }
   }

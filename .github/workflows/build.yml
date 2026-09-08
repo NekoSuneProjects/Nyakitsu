@@ -17,33 +17,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm run check
       - run: npm test
       - run: npm run build
-
-  package:
-    needs: validate
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            command: npm run dist:win
-            artifact: Nyakitsu-Windows
-          - os: ubuntu-latest
-            command: npm run dist:linux
-            artifact: Nyakitsu-Linux
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm install
-      - run: ${{ matrix.command }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact }}
-          path: release/*
-          if-no-files-found: error
